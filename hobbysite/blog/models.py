@@ -28,7 +28,7 @@ class Article(models.Model):
         return "{}".format(self.title)
 
     def get_absolute_url(self):
-        return reverse("blogapp:article-detail", args=[self.pk])
+        return reverse("blog:article-detail", args=[self.pk])
 
     class Meta:
         ordering = ["-created_on"]
