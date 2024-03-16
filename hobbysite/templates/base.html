@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Blog</title>
+</head>
+    <body>
+        <header>
+            <h1>
+                <a 
+                href="{% url 'blog:articles' %}"
+                style="color: black; text-decoration: none"
+                > Blog 
+                </a>
+            </h1>
+        </header>
+            {% block content %} {% endblock %}
+    </body>
+</html>
