@@ -3,7 +3,7 @@ from .models import ArticleCategory, Article
 
 
 class ArticleCategoryAdmin(admin.ModelAdmin):
-    model = Article
+    model = ArticleCategory
 
 
 class ArticleAdmin(admin.ModelAdmin):
