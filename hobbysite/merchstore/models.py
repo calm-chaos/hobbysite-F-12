@@ -13,6 +13,7 @@ class ProductType(models.Model):
     class Meta:
         ordering = ['name']
 
+
 class Product(models.Model):
     name = models.CharField(max_length=255)
     productType = models.ForeignKey(
