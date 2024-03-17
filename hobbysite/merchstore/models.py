@@ -12,6 +12,8 @@ class ProductType(models.Model):
     
     class Meta:
         ordering = ['name']
+        verbose_name = 'Product Type'
+        verbose_name_plural = 'Product Types'
 
 
 class Product(models.Model):
@@ -29,7 +31,7 @@ class Product(models.Model):
         return self.name
     
     def get_absolute_url(self):
-        return reverse('merchstore:merchstore_detail', args=[self.pk])
+        return reverse('merchstore:product-detail', args=[self.pk])
     
     class Meta: 
         ordering = ['name']
