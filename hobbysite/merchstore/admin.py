@@ -4,7 +4,7 @@ from .models import ProductType, Product
 # Register your models here.
 
 class ProductTypeAdmin(admin.ModelAdmin):
-    model = Product
+    model = ProductType
 
 
 class ProductAdmin(admin.ModelAdmin):
