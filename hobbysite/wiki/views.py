@@ -20,4 +20,4 @@ def article(request, pk):
         "category": article.category,
     }
 
-    return render(request, "article.html", ctx)
+    return render(request, "article-detail.html", ctx)
