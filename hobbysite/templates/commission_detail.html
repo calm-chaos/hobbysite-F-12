@@ -1,0 +1,19 @@
+{% extends 'template.html' %}
+
+{% block title %}
+Comments
+{% endblock %}
+
+{% block mycontent %}
+<h1>Comment List</h1>
+<h2>{{commission.title}}</h2>
+<p>Comments:</p>
+<ul>
+    {% for comment in object.comment.all %}
+    <p>Posted on: {{comment.created_on}}</p>
+    <p>Updated on: {{comment.updated_on}}</p>
+    <li>{{comment.entry}}</li>
+    
+    {% endfor %}
+</ul>
+{% endblock %}
