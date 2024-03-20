@@ -1,0 +1,16 @@
+{% extends 'template.html' %}
+
+{% block title %}
+List of Commissions
+{% endblock %}
+
+{% block mycontent %}
+    <h1>List of Commissions</h1>
+    {% for commission in object_list %}
+    <li><b><a href="{{commission.get_absolute_url}}">{{commission.title}}</a></b></li>
+    <p>Description of Commission: {{commission.description}}</p>
+    <p>Time created: {{commission.created_on}}</p>
+    <p>People needed for the commission: {{commission.people_required}}</p>
+    {% endfor %}
+
+{% endblock %}
