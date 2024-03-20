@@ -1,0 +1,17 @@
+{% extends "wiki_base.html" %}
+{% block content %}
+
+<head>
+    <title>{{ title }}</title>
+</head>
+
+<body>
+    <h2>{{ title }}</h2>
+    <p><strong>Category:</strong> {{ category }}</p>
+    <p><strong>Created On:</strong> {{ created_on }}</p>
+    <p><strong>Updated On:</strong> {{ updated_on }}</p>
+
+    <p> {{ entry }}</p>
+
+</body>
+{% endblock %}
