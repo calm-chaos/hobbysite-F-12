@@ -1,0 +1,10 @@
+{% extends "merch_base.html" %}
+{% block content %}
+
+    <h1>{{ object.name }}</h1>
+
+    <h2>Product Type: {{ object.productType }}</h2>
+    <p><strong>Price: </strong>Php {{ object.price }}</p>
+    <p><strong>Description: </strong>{{ object.description }}</p>
+    
+{% endblock %}
