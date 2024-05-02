@@ -15,7 +15,6 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
-
 load_dotenv()
 
 
@@ -47,7 +46,8 @@ INSTALLED_APPS = [
     "wiki",
     "blog",
     "commissions",
-    'merchstore',
+    "merchstore",
+    "user_management",
 ]
 
 MIDDLEWARE = [

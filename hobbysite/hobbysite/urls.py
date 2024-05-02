@@ -16,7 +16,7 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import include, path
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -24,4 +24,5 @@ urlpatterns = [
     path("wiki/", include("wiki.urls", namespace="wiki")),
     path("", include("commissions.urls", namespace="commissions")),
     path("merchstore/", include("merchstore.urls", namespace="merchstore")),
+    path("profile/", include("django.contrib.auth.urls")),
 ]
