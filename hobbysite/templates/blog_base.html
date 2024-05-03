@@ -3,9 +3,47 @@
 
 <head>
     <title>Blog</title>
+    <style>
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            background-color: #461e3f;
+            overflow: hidden;
+        }
+
+        nav li {
+            float: left;
+        }
+
+        nav li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        nav li a:hover {
+            background-color: #8d576d;
+        }
+
+        .active {
+            background-color: #8d576d;
+        }
+    </style>
 </head>
 
 <body>
+    <nav>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a class="active" href="../../blog/articles">Blog</a></li>
+            <li><a href="../../wiki/articles">Wiki</a></li>
+            <li><a href="../../commissions/list">Commissions</a></li>
+            <li><a href="../../merchstore/items">Merchstore</a></li>
+        </ul>
+    </nav>
     <header>
         <h1>
             <a href="{% url 'blog:articles' %}" style="color: black; text-decoration: none"> Blog
