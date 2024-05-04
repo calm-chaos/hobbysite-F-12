@@ -1,0 +1,12 @@
+{% extends "wiki_base.html" %}
+{% block content %}
+<ul>
+    {% for article in library %}
+    <h3>
+        <li>
+            <a href='{{ article.get_absolute_url}}'>{{ article.title }}</a>
+        </li>
+    </h3>
+    {% endfor %}
+</ul>
+{% endblock %}

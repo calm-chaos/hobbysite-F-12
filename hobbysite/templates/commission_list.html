@@ -7,10 +7,12 @@ List of Commissions
 {% block mycontent %}
 <h1>List of Commissions</h1>
 {% for commission in object_list %}
-<li><b><a href="{{commission.get_absolute_url}}">{{commission.title}}</a></b></li>
-<p>Description of Commission: {{commission.description}}</p>
-<p>Time created: {{commission.created_on}}</p>
-<p>People needed for the commission: {{commission.people_required}}</p>
+<h3>
+    <li><a href="{{commission.get_absolute_url}}">{{commission.title}}</a></li>
+</h3>
+<p><b>Description of Commission:</b> {{commission.description}}</p>
+<p><b>Time created:</b> {{commission.created_on}}</p>
+<p><b>People needed for the commission:</b> {{commission.people_required}}</p>
 {% endfor %}
 
 {% endblock %}

@@ -17,6 +17,7 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import include, path
+from django.views.generic import TemplateView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -25,4 +26,5 @@ urlpatterns = [
     path("", include("commissions.urls", namespace="commissions")),
     path("merchstore/", include("merchstore.urls", namespace="merchstore")),
     path("profile/", include("django.contrib.auth.urls")),
+    path("home", TemplateView.as_view(template_name="home_page.html"), name="home"),
 ]

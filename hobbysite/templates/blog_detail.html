@@ -2,12 +2,12 @@
 {% block content %}
 
 <body>
-    <h1> {{ object.title }} </h1>
+    <h2> {{ object.title }} </h2>
 
-    <h3><b>Category: </b>{{ object.category }}</h3>
-    <h3 style="text-indent: 25px;">{{ object.entry }}</h3>
+    <p><b>Category: </b>{{ object.category }}</p>
     <p><b>Created On: </b>{{ object.created_on }}</p>
     <p><b>Updated On: </b>{{ object.updated_on }}</p>
+    <p>{{ object.entry }}</p>
 
 </body>
 
