@@ -11,6 +11,9 @@ def articles(request):
 
 def article(request, pk):
     article = Article.objects.get(pk=pk)
+    other_articles = Article.objects.filter(category=article.category).exclude(pk=pk)[
+        :2
+    ]
 
     ctx = {
         "title": article.title,
@@ -18,6 +21,7 @@ def article(request, pk):
         "created_on": article.created_on,
         "updated_on": article.updated_on,
         "category": article.category,
+        "other_articles": other_articles,
     }
 
     return render(request, "wiki_detail.html", ctx)
