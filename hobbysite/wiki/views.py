@@ -6,7 +6,7 @@ from .models import Article, ArticleCategory
 def articles(request):
     ctx = {"library": Article.objects.all()}
 
-    return render(request, "articles.html", ctx)
+    return render(request, "wiki_list.html", ctx)
 
 
 def article(request, pk):
@@ -20,4 +20,4 @@ def article(request, pk):
         "category": article.category,
     }
 
-    return render(request, "article-detail.html", ctx)
+    return render(request, "wiki_detail.html", ctx)
