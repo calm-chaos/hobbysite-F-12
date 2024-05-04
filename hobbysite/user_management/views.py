@@ -2,6 +2,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect, render
 
 from .forms import LoginForm, RegistrationForm
+from .models import Profile
 
 
 def user_profile(request):
@@ -13,7 +14,13 @@ def register(request):
     if request.method == "POST":
         form = RegistrationForm(request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save()
+            display_name = form.cleaned_data["display_name"]
+            email_address = form.cleaned_data["email_address"]
+            Profile.objects.create(
+                user=user, display_name=display_name, email_address=email_address
+            )
+            login(request, user)
             return redirect("user_management:user-profile")
     else:
         form = RegistrationForm()
