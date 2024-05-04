@@ -1,7 +1,7 @@
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect, render
 
-from .forms import LoginForm, RegistrationForm
+from .forms import LoginForm, ProfileUpdateForm, RegistrationForm
 from .models import Profile
 
 
@@ -48,8 +48,12 @@ def logout_user(request):
 
 
 def update_profile(request):
-    return render(request, "registration/profile_update.html")
-
-
-def reset_password(request):
-    return render(request, "registration/password_reset.html")
+    profile = request.user.profile
+    if request.method == "POST":
+        form = ProfileUpdateForm(request.POST, instance=profile)
+        if form.is_valid():
+            form.save()
+            return redirect("user_management:user-profile")
+    else:
+        form = ProfileUpdateForm(instance=profile)
+    return render(request, "registration/profile_update.html", {"form": form})
