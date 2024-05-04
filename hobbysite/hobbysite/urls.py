@@ -25,6 +25,6 @@ urlpatterns = [
     path("wiki/", include("wiki.urls", namespace="wiki")),
     path("", include("commissions.urls", namespace="commissions")),
     path("merchstore/", include("merchstore.urls", namespace="merchstore")),
-    path("profile/", include("django.contrib.auth.urls")),
-    path("home", TemplateView.as_view(template_name="home_page.html"), name="home"),
+    path("profile/", include("user_management.urls", namespace="user-management")),
+    path("home/", TemplateView.as_view(template_name="home_page.html"), name="home"),
 ]
