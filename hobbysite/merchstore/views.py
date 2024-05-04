@@ -1,15 +1,33 @@
 from django.shortcuts import render
-from django.views.generic.list import ListView
-from django.views.generic.detail import DetailView
+from django.contrib.auth.decorators import login_required
 
-from .models import ProductType, Product
-
-
-class MerchStoreListView(ListView):
-    model = ProductType
-    template_name = 'product_list.html'
+from .models import ProductType, Product, Transaction
 
 
-class MerchStoreDetailView(DetailView):
-    model = Product
-    template_name = 'product_detail.html'
+def product_list(request):
+    return render()
+
+
+def product_detail(request):
+    return render()
+
+
+@login_required
+def product_create(request):
+    return render()
+
+
+@login_required
+def product_update(request):
+    return render()
+
+
+@login_required
+def product_cart(request):
+    return render()
+
+
+@login_required
+def transaction_list(request):
+    return render()
+
