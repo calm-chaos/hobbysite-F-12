@@ -1,4 +1,4 @@
-{% extends 'template.html' %}
+{% extends 'commission_base.html' %}
 
 {% block title %}
 Comments
@@ -13,7 +13,7 @@ Comments
     <p>Posted on: {{comment.created_on}}</p>
     <p>Updated on: {{comment.updated_on}}</p>
     <li>{{comment.entry}}</li>
-    
+
     {% endfor %}
 </ul>
 {% endblock %}

@@ -2,7 +2,10 @@
 <html lang="en">
 
 <head>
-    <title>Article Library</title>
+    <title>
+        {% block title%}
+        {% endblock %}
+    </title>
     <style>
         nav ul {
             list-style-type: none;
@@ -51,8 +54,6 @@
     </style>
 </head>
 
-
-
 <body>
     <div class="top-links">
         {% if user.is_authenticated %}
@@ -65,15 +66,19 @@
     </div>
     <nav>
         <ul>
-            <li><a href="../../home">Home</a></li>
-            <li><a href="../../blog/articles">Blog</a></li>
-            <li><a class="active" href="../../wiki/articles">Wiki</a></li>
-            <li><a href="../../commissions/list">Commissions</a></li>
-            <li><a href="../../merchstore/items">Merchstore</a></li>
+            <li><a href="../../../home">Home</a></li>
+            <li><a class="active" href="../../../blog/articles">Blog</a></li>
+            <li><a href="../../../wiki/articles">Wiki</a></li>
+            <li><a href="../../../commissions/list">Commissions</a></li>
+            <li><a href="../../../merchstore/items">Merchstore</a></li>
         </ul>
     </nav>
-    <h1>Article Library</h1>
-    {% block content %}{% endblock %}
+    <header>
+        <h1>
+            Blog
+        </h1>
+    </header>
+    {% block content %} {% endblock %}
 </body>
 
 </html>

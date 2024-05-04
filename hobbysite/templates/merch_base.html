@@ -1,13 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>Merchandise Store</title>
-    </head>
-        <body>
-        <header>
-            <h1><a href="{% url 'merchstore:products' %}">Merchandise Store</a></h1>
-            </h1>
-        </header>
-        {% block content %} {% endblock %}
-        </body>
+
+<head>
+    <title>Merchandise Store</title>
+    <style>
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            background-color: #461e3f;
+            overflow: hidden;
+        }
+
+        nav li {
+            float: left;
+        }
+
+        nav li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        nav li a:hover {
+            background-color: #672F58;
+        }
+
+        .active {
+            background-color: #8d576d;
+        }
+
+        .top-links {
+            text-align: right;
+            padding: 5px;
+            background-color: white;
+        }
+
+        .top-links a {
+            color: #461e3f;
+            text-decoration: none;
+            margin-left: 10px;
+            font-size: 15px;
+        }
+
+        .top-links a:hover {
+            color: #8d576d;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="top-links">
+        {% if user.is_authenticated %}
+        <a href="../../profile">Profile</a>
+        <a href="{% url 'user_management:logout' %}">Logout</a>
+        {% else %}
+        <a href="../../profile/login">Log in</a>
+        <a href="../../profile/register">Sign Up</a>
+        {% endif %}
+    </div>
+    <nav>
+        <ul>
+            <li><a href="../../home">Home</a></li>
+            <li><a href="../../blog/articles">Blog</a></li>
+            <li><a href="../../wiki/articles">Wiki</a></li>
+            <li><a href="../../commissions/list">Commissions</a></li>
+            <li><a class="active" href="../../merchstore/items">Merchstore</a></li>
+        </ul>
+    </nav>
+    <header>
+        <h1>Merchandise Store</h1>
+        </h1>
+    </header>
+    {% block content %} {% endblock %}
+</body>
+
 </html>
