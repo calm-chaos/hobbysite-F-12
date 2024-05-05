@@ -1,6 +1,8 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
+from django.utils import timezone
 
-from .forms import CommentForm
+from .forms import *
 from .models import *
 
 
@@ -62,3 +64,19 @@ def article(request, pk):
     }
 
     return render(request, "wiki_detail.html", ctx)
+
+
+@login_required
+def article_create(request):
+    if request.method == "POST":
+        form = ArticleForm(request.POST, request.FILES)
+        if form.is_valid():
+            article = form.save(commit=False)
+            article.author = request.user.profile
+            article.created_on = timezone.now()
+            article.updated_on = timezone.now()
+            article.save()
+            return redirect("wiki:article-library")
+    else:
+        form = ArticleForm()
+    return render(request, "wiki_create.html", {"form": form})

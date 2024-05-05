@@ -13,6 +13,7 @@
     {% endfor %}
 </ul>
 {% endfor %}
+<a href="{% url 'wiki:article-create' %}" class="button">Create New Article</a>
 <br>
 
 <h2>All Articles</h2>
@@ -40,6 +41,5 @@
 </ul>
 {% endfor %}
 {% endif %}
-
 
 {% endblock %}

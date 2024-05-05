@@ -48,6 +48,21 @@
         .top-links a:hover {
             color: #8d576d;
         }
+
+        .button {
+            display: inline-block;
+            padding: 6px 12px;
+            background-color: #c9adc2;
+            color: #461e3f;
+            border: none;
+            border-radius: 12px;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .button:hover {
+            background-color: #d8c6d4;
+        }
     </style>
 </head>
 
@@ -56,20 +71,20 @@
 <body>
     <div class="top-links">
         {% if user.is_authenticated %}
-        <a href="../../profile">Profile</a>
+        <a href="{% url 'user_management:user-profile' %}">Profile</a>
         <a href="{% url 'user_management:logout' %}">Logout</a>
         {% else %}
-        <a href="../../profile/login">Log in</a>
-        <a href="../../profile/register">Sign Up</a>
+        <a href="{% url 'user_management:login' %}">Log in</a>
+        <a href="{% url 'user_management:register-profile' %}">Sign Up</a>
         {% endif %}
     </div>
     <nav>
         <ul>
-            <li><a href="../../home">Home</a></li>
-            <li><a href="../../blog/articles">Blog</a></li>
-            <li><a class="active" href="../../wiki/articles">Wiki</a></li>
-            <li><a href="../../commissions/list">Commissions</a></li>
-            <li><a href="../../merchstore/items">Merchstore</a></li>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'blog:articles' %}">Blog</a></li>
+            <li><a class="active" href="{% url 'wiki:article-library' %}">Wiki</a></li>
+            <li><a href="{% url 'commissions:list' %}">Commissions</a></li>
+            <li><a href="{% url 'merchstore:products' %}">Merchstore</a></li>
         </ul>
     </nav>
     <h1>Article Library</h1>
