@@ -3,10 +3,14 @@
 
 <head>
     <title>{{ title }}</title>
+    {% if image %}
+    <img src="{{ image.url }}" alt="boo" style="width: 100px;">
+    {% endif %}
 </head>
 
 <body>
     <h2>{{ title }}</h2>
+    <p><strong>Author:</strong> <i>{{ author }}</i></p>
     <p><strong>Category:</strong> <i>{{ category }}</i></p>
     <p><strong>Created On:</strong> {{ created_on }}</p>
     <p><strong>Updated On:</strong> {{ updated_on }}</p>

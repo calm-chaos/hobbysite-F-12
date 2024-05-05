@@ -1,13 +1,15 @@
 {% extends "merch_base.html" %}
 {% block content %}
-    
-    {% for typeProduct in object_list %}
-        <h2>{{ typeProduct }}</h1>
-        <ul>
-            {% for product in typeProduct.products.all %}
-            <h3><li><a href="{{ product.get_absolute_url }}">{{ product }}</a></li></h3>
-            {% endfor %}
-        </ul>
 
+{% for typeProduct in object_list %}
+<h2>{{ typeProduct }}</h2>
+<ul>
+    {% for product in typeProduct.products.all %}
+    <h3>
+        <li><a href="{{ product.get_absolute_url }}">{{ product }}</a></li>
+    </h3>
     {% endfor %}
-    {% endblock %}
+</ul>
+
+{% endfor %}
+{% endblock %}
