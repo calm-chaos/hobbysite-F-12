@@ -17,13 +17,15 @@
 
     <p>{{ entry }}</p>
 
+    <a href="" class="button">Update Article</a>
+
     <p><br><strong>Read more from category:</strong> <i>{{ category }}</i> </p>
 
     <ul>
         {% for other_article in other_articles %}
         <p>
             <li>
-                <a href="{% url 'wiki:article' pk=other_article.pk %}""> {{ other_article.title }}</a>
+                <a href="{% url 'wiki:article' pk=other_article.pk %}"> {{ other_article.title }}</a>
             </li>
         </p>
         {% endfor %}
@@ -32,17 +34,17 @@
     {% if request.user.is_authenticated %}
     <h3>Add a Comment</h3>
     <form method=" post">
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                    <button type="submit">Submit</button>
-                    </form>
-                    {% endif %}
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+    {% endif %}
 
-                    <h3>Comments</h3>
-                    {% for comment in comments %}
-                    <p><strong><i>{{ comment.author }}</i></strong> ({{ comment.created_on }})</p>
-                    <p>{{ comment.entry }}</p>
-                    {% endfor %}
+    <h3>Comments</h3>
+    {% for comment in comments %}
+    <p><strong><i>{{ comment.author }}</i></strong> ({{ comment.created_on }})</p>
+    <p>{{ comment.entry }}</p>
+    {% endfor %}
 
 </body>
 {% endblock %}

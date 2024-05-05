@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 
 from .forms import *
@@ -69,7 +69,7 @@ def article(request, pk):
 @login_required
 def article_create(request):
     if request.method == "POST":
-        form = ArticleForm(request.POST, request.FILES)
+        form = ArticleCreateForm(request.POST, request.FILES)
         if form.is_valid():
             article = form.save(commit=False)
             article.author = request.user.profile
@@ -78,5 +78,18 @@ def article_create(request):
             article.save()
             return redirect("wiki:article-library")
     else:
-        form = ArticleForm()
+        form = ArticleCreateForm()
     return render(request, "wiki_create.html", {"form": form})
+
+
+@login_required
+def article_update(request, pk):
+    article = get_object_or_404(Article, pk=pk)
+    form = ArticleUpdateForm(request.POST or None, request.FILES, instance=article)
+    if request.method == "POST":
+        if form.is_valid():
+            form.save()
+            return redirect("wiki:article", pk=pk)
+    else:
+        form = ArticleUpdateForm(instance=article)
+    return render(request, "wiki_update.html", {"form": form, "article": article})
