@@ -1,11 +1,12 @@
 from django.urls import path
 
-from .views import MerchStoreListView, MerchStoreDetailView
+from .views import product_list, product_detail, product_create, product_update, product_cart, transaction_list
 
 
 urlpatterns = [
-    path('items', MerchStoreListView.as_view(), name='products'),
-    path('item/<int:pk>', MerchStoreDetailView.as_view(), name='product-detail'),
+    path('items', product_list, name='products'),
+    path('item/<int:pk>', product_detail, name='product-detail'),
+    
 ]
 
 app_name = 'merchstore'
