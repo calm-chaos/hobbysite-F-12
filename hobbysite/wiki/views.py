@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 
-from .models import Article, ArticleCategory
+from .forms import CommentForm
+from .models import *
 
 
 def articles(request):
@@ -34,6 +35,18 @@ def article(request, pk):
     other_articles = Article.objects.filter(category=article.category).exclude(pk=pk)[
         :2
     ]
+    comments = Comment.objects.filter(article=article).order_by("-created_on")
+
+    form = CommentForm()
+
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.author = request.user.profile
+            comment.article = article
+            comment.save()
+            return redirect("wiki:article", pk=pk)
 
     ctx = {
         "title": article.title,
@@ -44,6 +57,8 @@ def article(request, pk):
         "updated_on": article.updated_on,
         "category": article.category,
         "other_articles": other_articles,
+        "comments": comments,
+        "form": form,
     }
 
     return render(request, "wiki_detail.html", ctx)
