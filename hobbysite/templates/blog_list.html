@@ -1,13 +1,53 @@
 {% extends "blog_base.html" %}
+{% block title %} Article Library {% endblock %}
 {% block content %}
-<ul>
-    {% for article in object_list %}
-    <h3>
+
+{% if request.user.is_authenticated %}
+    <h2>{{user}}'s Articles</h2>
+    {% for category in user_categories %}
+    <h3>{{ category.name }}</h3>
+    <ul>
+        {% for article in user_articles %}
+        {% if article.category == category %}
         <li>
             <a href="{{ article.get_absolute_url }}"> {{ article.title }}</a>
         </li>
-    </h3>
+
+        {% endif %}
+        {% endfor %}
+    </ul>
     {% endfor %}
-</ul>
+    <a href = "{% url 'blog:create' %}" class="button">Create New Article</a>
+    <br>
+
+    <h2>All Articles</h2>
+    {% for category in all_categories %}
+    <h3>{{ category.name }}</h3>
+    <uL>
+        {% for article in other_articles %}
+        {% if article.category == category %}
+        <li>
+            <a href="{{ article.get_absolute_url }}"> {{ article.title }}</a>
+        </li>
+        {% endif %}
+        {% endfor %}
+    </uL>
+    {% endfor %}
+
+{% else %}
+    <h2>All Articles</h2>
+    {% for category in all_categories %}
+    <h3>{{ category.name }}</h3>
+    <ul>
+        {% for article in all_articles %}
+        {% if article.category == category %}
+        <li>
+            <a href="{{ article.get_absolute_url }}"> {{ article.title }}</a>
+        </li>
+        {% endif %}
+        {% endfor %}
+    </ul>
+    {% endfor %}
+    {% endif %}
 
 {% endblock %}
