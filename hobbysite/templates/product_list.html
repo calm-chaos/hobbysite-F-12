@@ -1,13 +1,21 @@
 {% extends "merch_base.html" %}
 {% block content %}
-    
-    {% for typeProduct in object_list %}
-        <h2>{{ typeProduct }}</h1>
-        <ul>
-            {% for product in typeProduct.products.all %}
-            <h3><li><a href="{{ product.get_absolute_url }}">{{ product }}</a></li></h3>
-            {% endfor %}
-        </ul>
 
-    {% endfor %}
-    {% endblock %}
+    <h2>User's Products</h2>
+    <ul>
+        {% for userProduct in user_products %}
+            <h3><li><a href="{{ userProduct.get_absolute_url}}">{{ userProduct }}</a></li></h3>
+        {% endfor %}
+    </ul>
+
+
+    <h2>All Products</h2>
+    <ul>
+        {% for product in product_list %}
+            <h3><li><a href="{{ product.get_absolute_url}}">{{ product }}</a></li></h3>
+        {% endfor %}
+    </ul>
+
+    <h2><a href="{% url 'merchstore:product_create' %}">Add a Product</a></h2>
+{% endblock %}
+
