@@ -17,7 +17,11 @@
 
     <p>{{ entry }}</p>
 
+    {% if request.user.is_authenticated %}
+    {% if request.user == author.user %}
     <a href="{{ request.path }}/edit" class="button">Update Article</a>
+    {% endif %}
+    {% endif %}
 
     <p><br><strong>Read more from category:</strong> <i>{{ category }}</i> </p>
 
