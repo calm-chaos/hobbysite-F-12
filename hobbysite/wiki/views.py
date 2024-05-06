@@ -91,3 +91,10 @@ def article_update(request, pk):
     else:
         form = ArticleUpdateForm(instance=article)
     return render(request, "wiki_update.html", {"form": form, "article": article})
+
+
+def gallery(request):
+    articles = Article.objects.all()
+
+    ctx = {"articles": articles}
+    return render(request, "wiki_gallery.html", ctx)

@@ -1,6 +1,8 @@
 {% extends "wiki_base.html" %}
 {% block content %}
 
+<a href="{% url 'wiki:gallery' %}" class="button">Go to Gallery</a>
+
 {% if request.user.is_authenticated %}
 <h2> {{ user }}'s Articles</h2>
 {% for category in user_categories %}

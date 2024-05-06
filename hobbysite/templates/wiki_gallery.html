@@ -1,0 +1,51 @@
+{% extends "wiki_base.html" %}
+{% block content %}
+
+<head>
+    <style>
+        div.gallery {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+
+        div.image {
+            margin: 5px;
+            border: 1px solid #c9adc2;
+            width: 150px;
+            max-width: 300px;
+        }
+
+        div.image:hover {
+            border: 1px solid #8d576d;
+        }
+
+        div.image img {
+            width: 100%;
+            height: auto;
+        }
+
+        div.desc {
+            padding: 15px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="gallery">
+        {% for article in articles %}
+        <div class="image">
+            <a target="{{ article.header_image.url }}" href="{{ article.get_absolute_url }}">
+                <img src="{{ article.header_image.url }}" alt="" width="600" height="400">
+            </a>
+            <div class="desc"> {{ article.title }} </div>
+        </div>
+        {% endfor %}
+    </div>
+
+
+</body>
+
+{% endblock %}

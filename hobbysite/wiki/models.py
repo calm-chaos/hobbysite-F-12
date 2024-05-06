@@ -46,6 +46,9 @@ class Article(models.Model):
     def get_absolute_url(self):
         return reverse("wiki:article", args=[str(self.pk)])
 
+    def get_image(self):
+        return header_image
+
 
 class Comment(models.Model):
     author = models.ForeignKey(
