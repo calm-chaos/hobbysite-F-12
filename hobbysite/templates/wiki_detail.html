@@ -33,7 +33,7 @@
     <br><br>
     {% if request.user.is_authenticated %}
     <h3>Add a Comment</h3>
-    <form method=" post">
+    <form method="POST">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Submit</button>

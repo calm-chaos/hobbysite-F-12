@@ -40,7 +40,6 @@ def article(request, pk):
     comments = Comment.objects.filter(article=article).order_by("-created_on")
 
     form = CommentForm()
-
     if request.method == "POST":
         form = CommentForm(request.POST)
         if form.is_valid():
@@ -48,7 +47,6 @@ def article(request, pk):
             comment.author = request.user.profile
             comment.article = article
             comment.save()
-            return redirect("wiki:article", pk=pk)
 
     ctx = {
         "title": article.title,
