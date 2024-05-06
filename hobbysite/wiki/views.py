@@ -71,8 +71,6 @@ def article_create(request):
         if form.is_valid():
             article = form.save(commit=False)
             article.author = request.user.profile
-            article.created_on = timezone.now()
-            article.updated_on = timezone.now()
             article.save()
             return redirect("wiki:article-library")
     else:
