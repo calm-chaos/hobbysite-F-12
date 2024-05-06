@@ -90,3 +90,10 @@ def blog_update(request, pk):
     else:
         form = BlogUpdateForm(instance=article)
     return render(request, "blog_update.html", {"form": form, "article": article})
+
+
+def blog_gallery(request):
+    articleImages = Article.objects.all()
+
+    ctx = {"articles": articleImages}
+    return render(request, "blog_gallery.html", ctx)
