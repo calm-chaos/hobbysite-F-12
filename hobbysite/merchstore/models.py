@@ -26,7 +26,8 @@ class Product(models.Model):
     owner = models.ForeignKey(
         Profile,
         null=True,
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        related_name='users'
     )
     description = models.TextField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
@@ -47,7 +48,7 @@ class Product(models.Model):
         return self.name
     
     def get_absolute_url(self):
-        return reverse('merchstore:product-detail', args=[self.pk])
+        return reverse('merchstore:product_detail', args=[self.pk])
     
     class Meta: 
         ordering = ['name']
