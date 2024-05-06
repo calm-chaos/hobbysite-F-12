@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from user_management.models import Profile
 
 
 class ArticleCategory(models.Model):
@@ -18,7 +19,10 @@ class Article(models.Model):
     title = models.CharField(max_length=225)
 
     author = models.ForeignKey(
-        "Profile", null=True, on_delete=models.SET_NUL, related_name="articles"
+        Profile,
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name="articles",
     )
 
     category = models.ForeignKey(
@@ -42,7 +46,10 @@ class Article(models.Model):
 
 class Comment(models.Model):
     author = models.ForeignKey(
-        "Profile", null=True, on_delete=models.SET_NUL, related_name="comment"
+        Profile,
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name="comment",
     )
 
     article = models.ForeignKey(
