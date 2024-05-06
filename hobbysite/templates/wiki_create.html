@@ -7,7 +7,7 @@
 
 <body>
     <h2>Create New Article</h2>
-
+    <p> Author: {{ request.user }} </p>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
