@@ -2,6 +2,8 @@
 {% block title %} Article Library {% endblock %}
 {% block content %}
 
+<a href="{% url 'blog:gallery' %}" class="button">Gallery</a>
+
 {% if request.user.is_authenticated %}
     <h2>{{user}}'s Articles</h2>
     {% for category in user_categories %}
