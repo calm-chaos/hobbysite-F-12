@@ -37,7 +37,7 @@
     <div class="gallery">
         {% for article in articles %}
         <div class="image">
-            <a target="{{ article.header_image.url }}" href="{{ article.get_absolute_url }}">
+            <a target="_self" href="{{ article.get_absolute_url }}">
                 <img src="{{ article.header_image.url }}" alt="" width="600" height="400">
             </a>
             <div class="desc"> {{ article.title }} </div>
