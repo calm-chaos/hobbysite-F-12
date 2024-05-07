@@ -1,0 +1,23 @@
+{% extends 'commission_base.html' %}
+
+{% block title %}
+Job Application Form
+{% endblock %}
+
+{% block mycontent %}
+
+<head>
+    <title>Apply for a Job!</title>
+</head>
+
+<body>
+    <h2>Apply for the Job!</h2>
+    <form method ="post">
+        {%csrf_token%}
+        {{jobapplication_form.as_p}}
+        <button type="submit">Submit</button>
+    </form>
+
+</body>
+
+{% endblock %}
