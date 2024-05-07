@@ -96,7 +96,7 @@ def commission_update(request, pk):
     return render(request, "commission_update.html", ctx)
 
 @login_required
-def commission_jobapplication(request):
+def commission_jobapplication(request, pk):
 
     jobapplication_form = JobApplicationForm(request.POST or None)
     if request.method == "POST":
