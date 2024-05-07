@@ -74,6 +74,23 @@ def product_create(request):
 
 @login_required
 def product_update(request, pk):
+    updateProduct = get_object_or_404(Product, pk=pk)
+    updateForm = ProductUpdateForm(request.POST, instance=updateProduct)
+    if request.method == "POST":
+        if updateForm.is_valid():
+            updateProduct = updateForm.save(commit=False)
+            if updateProduct.stock == 0:
+                updateProduct.status = "Out of Stock"
+            else: 
+                updateProduct.status = "Available"
+            updateProduct = updateForm.save()
+            return redirect("merchstore:product_detail", pk=pk)
+    else:
+        updateForm = ProductUpdateForm(instance=updateProduct)
+    ctx = {
+        "form":updateForm,
+        "product":updateProduct
+    }
     return render(request, 'product_update.html', ctx)
 
 
