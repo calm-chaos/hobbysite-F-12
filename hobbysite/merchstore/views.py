@@ -35,9 +35,8 @@ def product_detail(request, pk):
             newTransaction.product = product 
             newTransaction.amount = transactionForm.cleaned_data.get('amount')
             if request.user.is_authenticated:
-                user = request.user.profile
-                newTransaction.buyer = user 
-                product.stock-=newTransaction.amount
+                newTransaction.buyer = request.user.profile 
+                product.stock -= newTransaction.amount
                 if product.stock == 0:
                     product.status = "Out of Stock"
                 product.save()
@@ -96,9 +95,34 @@ def product_update(request, pk):
 
 @login_required
 def product_cart(request):
+    user_transactions_buyer = Transaction.objects.filter(buyer__user=request.user)
+
+    buyer_cart = {}
+    for transaction in user_transactions_buyer:
+        owner = transaction.product.owner
+        if owner not in buyer_cart:
+            buyer_cart[owner] = []
+        buyer_cart[owner].append(transaction)
+    
+    ctx = {
+        'buyer_cart': buyer_cart
+    }
     return render(request, 'product_cart.html', ctx)
 
 
 @login_required
 def transaction_list(request):
+    user_transactions_seller = Transaction.objects.filter(product__owner__user=request.user)
+    
+    transaction_list = {}
+    for transaction in user_transactions_seller:
+        buyer = transaction.buyer
+        if buyer not in transaction_list:
+            transaction_list[buyer] = []
+            transaction_list[buyer].append(transaction)
+    
+    ctx = {
+        'transaction_list': transaction_list
+    }
+
     return render(request, 'transaction_list.html', ctx)
