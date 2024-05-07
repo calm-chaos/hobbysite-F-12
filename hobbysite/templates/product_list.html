@@ -2,6 +2,10 @@
 {% block content %}
 
     {% if request.user.is_authenticated %}
+        <h2><a href="{% url 'merchstore:product_create' %}">Add a Product</a></h2>
+        <h2><a href="{% url 'merchstore:product_cart' %}">View Cart</a></h2>
+        <h2><a href="{% url 'merchstore:transaction_list' %}">View Transaction List</a></h2>
+
         <h2>{{ user }}'s Products</h2>
         <ul> 
             {% for userProduct in user_products %}
@@ -17,7 +21,7 @@
             {% endfor %}
         </ul>
 
-        <h2><a href="{% url 'merchstore:product_create' %}">Add a Product</a></h2>
+       
     
     {% else %}
         {% for product in all_products %}
