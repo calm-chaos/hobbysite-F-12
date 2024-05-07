@@ -3,12 +3,17 @@
 {% block content %}
 
 <head>
-    {% if image %}
-    <img
-        src = "{{ image.url }}"
-        alt = "{{ title }}"
-        style = "max-width: 500px;">
-    {% endif %}
+    <div class = "header">
+        {% if image %}
+        <img
+            src = "{{ image.url }}"
+            alt = "{{ title }}"
+            style = "height: 275px; 
+                    width: 1170px; 
+                    object-fit: cover; 
+                    object-position: 0px 65%;">
+        {% endif %}
+    </div>
 </head>
 
 <body>
