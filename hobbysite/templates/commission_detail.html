@@ -1,19 +1,51 @@
 {% extends 'commission_base.html' %}
 
 {% block title %}
-Comments
+Details
 {% endblock %}
 
 {% block mycontent %}
-<h1>Comment List</h1>
-<h2>{{commission.title}}</h2>
-<p>Comments:</p>
+
+<h1>{{commission_detail.title}}</h1>
+
+{% if request.user.is_authenticated %}
+{% if request.user.profile == commission_detail.author %}
+<h3><a href="{% url 'commissions:commission_update' pk=commission_detail.pk %}">Update your Commission Here</a></h3>
+{%endif%}
+{%endif%}
+
+<p><b>Description of Commission:</b> {{commission_detail.description}}</p>
+<p><b>Time created:</b> {{commission_detail.created_on}}</p>
+<p><b>Status:</b> {{commission_detail.get_status}}</p>
+<p><b>Total Manpower Opening: </b>{{total_manpower_required.total}}</p>
+<p><b>Available Manpower Opening: </b>{{total_available_manpower}}</p>
+<p><b>Roles:</b></p>
+
 <ul>
-    {% for comment in object.comment.all %}
-    <p>Posted on: {{comment.created_on}}</p>
-    <p>Updated on: {{comment.updated_on}}</p>
-    <li>{{comment.entry}}</li>
+
+    {% for job in job_detail %}
+    <li>{{job.role}}</li>
+    <p><b>Manpower Required: </b>{{job.manpower_required}}</p>
+
+    <p><b>Accepted Candidates: </b>{{job.accepted_applicants}}</p>
+
+    {% if job.manpower_required != job.accepted_applicants %}
+    <p><b>Status: </b>{{job.get_status}}</p>
+    {%else%}
+    <p><b>Status:</b>Full</p>
+    {%endif%}
+
+    {% if job.manpower_required != job.accepted_applicants %}
+    {% if job.get_status == "Open" %}
+    {% if request.user.is_authenticated %}
+    <h3><a href="{% url 'commissions:commission_jobapplication' pk=commission_detail.pk %}">Apply to Job</a></h3>
+    {%endif%}
+    {%endif%}
+    {%endif%}
 
     {% endfor %}
+
 </ul>
+
+
 {% endblock %}
