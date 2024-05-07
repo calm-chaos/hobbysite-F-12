@@ -1,13 +1,11 @@
 from django.contrib import admin
 
-from .models import Commission, Comment
+from .models import Commission
 
-class CommentInlineAdmin(admin.TabularInline):
-    model = Comment
 
 class CommissionAdmin(admin.ModelAdmin):
     model = Commission
-    inlines = [CommentInlineAdmin,]
+
 
 admin.site.register(Commission, CommissionAdmin)
 
