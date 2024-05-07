@@ -1,20 +1,26 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 
 from .models import ProductType, Product, Transaction
-from .forms import ProductForm, TransactionForm
+from .forms import TransactionForm, ProductForm, ProductUpdateForm
 from user_management.models import Profile
 
 
-@login_required
 def product_list(request):
-    user_products = Product.objects.filter(owner__user=request.user)
-    all_products = Product.objects.exclude(owner__user=request.user)
+    if request.user.is_authenticated:
+        user_products = Product.objects.filter(owner__user=request.user)
+        exclude_user_products = Product.objects.exclude(owner__user=request.user)
 
-    ctx = {
-        "user_products": user_products,
-        "product_list": all_products
-    }
+        ctx = {
+            "user_products": user_products,
+            "exclude_user_products": exclude_user_products
+        }
+    else: 
+        all_products = Product.objects.all()
+        ctx = {
+            "all_products": all_products
+        }
+
     return render(request, 'product_list.html', ctx)
 
 
@@ -22,9 +28,26 @@ def product_detail(request, pk):
     product = Product.objects.get(pk=pk)
     transactionForm = TransactionForm()
     if request.method == "POST":
-        form = TransactionForm(request.POST)
-        if form.is_valid():
-            transaction = form.save()
+        transactionForm = TransactionForm(request.POST, product=product)
+        if transactionForm.is_valid():
+            newTransaction = Transaction()
+            newTransaction.status = 'On Cart'
+            newTransaction.product = product 
+            newTransaction.amount = transactionForm.cleaned_data.get('amount')
+            if request.user.is_authenticated:
+                user = request.user.profile
+                newTransaction.buyer = user 
+                product.stock-=newTransaction.amount
+                if product.stock == 0:
+                    product.status = "Out of Stock"
+                product.save()
+                newTransaction.save()
+                return redirect("merchstore:product_cart")
+            else: 
+                product.save()
+                newTransaction.save()
+                return redirect("user_management:login")
+                
     ctx = {
         "product": product,
         "form": transactionForm
@@ -42,6 +65,7 @@ def product_create(request):
             currentUser = Profile.objects.get(user=request.user)
             product.owner = currentUser
             product = productForm.save()
+            return redirect("merchstore:products")
     ctx = {
         "form": productForm
     }
@@ -50,15 +74,14 @@ def product_create(request):
 
 @login_required
 def product_update(request, pk):
-    return render()
+    return render(request, 'product_update.html', ctx)
 
 
 @login_required
 def product_cart(request):
-    return render()
+    return render(request, 'product_cart.html', ctx)
 
 
 @login_required
 def transaction_list(request):
-    return render()
-
+    return render(request, 'transaction_list.html', ctx)
