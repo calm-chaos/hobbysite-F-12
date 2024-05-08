@@ -1,0 +1,22 @@
+{% extends "merch_base.html" %}
+{% block content %}
+
+{% if request.user.is_authenticated %}
+    <h2>{{ user }}'s List of Transactions</h2>
+    <a href="{% url 'merchstore:product_list' %}"class="button">Return to Product List</a>
+    {% for buyer, transactions in transaction_list.items %}
+        <h2>{{ buyer }}'s Transactions</h2>
+        {% for transaction in transactions %}
+            <ul>
+                <h3><li>{{ transaction.product }}</li></h3>
+                <ul>
+                    <li><p><strong>Amount Purchased: </strong>{{ transaction.amount }}</p></li>
+                    <li><p><strong>Status: </strong>{{ transaction.status }}</p></li>
+                    <li><p><strong>Date of Transaction: </strong>{{ transaction.createdOn }}</p></li>
+                </ul>
+            </ul>
+        {% endfor %}
+     {% endfor %}
+{% endif %}
+
+{% endblock %}

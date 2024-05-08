@@ -1,15 +1,29 @@
 {% extends "merch_base.html" %}
 {% block content %}
 
-{% for typeProduct in object_list %}
-<h2>{{ typeProduct }}</h2>
-<ul>
-    {% for product in typeProduct.products.all %}
-    <h3>
-        <li><a href="{{ product.get_absolute_url }}">{{ product }}</a></li>
-    </h3>
-    {% endfor %}
-</ul>
+    {% if request.user.is_authenticated %}
+        <a href="{% url 'merchstore:product_create' %}"class="button">Add a Product</a>
+        <a href="{% url 'merchstore:product_cart' %}"class="button">View Cart</a>
+        <a href="{% url 'merchstore:transaction_list' %}"class="button">View Transaction List</a>
 
-{% endfor %}
+        <h2>{{ user }}'s Products</h2>
+        <ul> 
+            {% for userProduct in user_products %}
+                <h3><li><a href="{{ userProduct.get_absolute_url}}">{{ userProduct }}</a></li></h3>
+            {% endfor %}
+        </ul>
+
+        <h2>All Products</h2>
+        <ul>
+            {% for product in exclude_user_products %}
+                <h3><li><a href="{{ product.get_absolute_url}}">{{ product }}</a></li></h3>
+            {% endfor %}
+        </ul>
+
+    {% else %}
+        {% for product in all_products %}
+            <h3><li><a href="{{ product.get_absolute_url}}">{{ product }}</a></li></h3>
+        {% endfor %}
+    {% endif %}
+
 {% endblock %}

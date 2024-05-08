@@ -29,6 +29,7 @@ urlpatterns = [
     path("merchstore/", include("merchstore.urls", namespace="merchstore")),
     path("profile/", include("user_management.urls", namespace="user-management")),
     path("home/", TemplateView.as_view(template_name="home_page.html"), name="home"),
+    path("", include("django.contrib.auth.urls")),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
