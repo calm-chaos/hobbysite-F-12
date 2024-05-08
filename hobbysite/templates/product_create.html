@@ -2,7 +2,7 @@
 {% block content %}
 
     <h2>Add a Product</h2>
-    <h3><a href="{% url 'merchstore:product_list' %}">Return to Product List</a></h3>
+    <a href="{% url 'merchstore:product_list' %}"class="button">Return to Product List</a>
 
     <form method="POST">
         {% csrf_token %}

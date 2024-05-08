@@ -3,7 +3,8 @@
 
 {% if request.user.is_authenticated %}
     <h2>{{ user }}'s Cart</h2>
-    <h3><a href="{% url 'merchstore:product_list' %}">Return to Product List</a></h3>
+    <a href="{% url 'merchstore:product_list' %}"class="button">Return to Product List</a>
+    
     {% for owner, transactions in buyer_cart.items %}
         <h2>{{ owner }}'s Products </h2>
         {% for transaction in transactions %}

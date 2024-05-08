@@ -2,9 +2,9 @@
 {% block content %}
 
     {% if request.user.is_authenticated %}
-        <h2><a href="{% url 'merchstore:product_create' %}">Add a Product</a></h2>
-        <h2><a href="{% url 'merchstore:product_cart' %}">View Cart</a></h2>
-        <h2><a href="{% url 'merchstore:transaction_list' %}">View Transaction List</a></h2>
+        <a href="{% url 'merchstore:product_create' %}"class="button">Add a Product</a>
+        <a href="{% url 'merchstore:product_cart' %}"class="button">View Cart</a>
+        <a href="{% url 'merchstore:transaction_list' %}"class="button">View Transaction List</a>
 
         <h2>{{ user }}'s Products</h2>
         <ul> 

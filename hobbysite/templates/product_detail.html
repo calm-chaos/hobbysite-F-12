@@ -11,16 +11,16 @@
 <p><strong>Description: </strong>{{ product.description }}</p>
 
 {% if request.user.is_authenticated and product.owner == request.user.profile %}
-    <h2><a href="{% url 'merchstore:product_update' pk=product.pk %}">Edit Product</a></h2>
+    <a href="{% url 'merchstore:product_update' pk=product.pk %}"class="button">Edit Product</a>
 {% else %}
     <form method="POST">
         {% csrf_token %}
         {{ form.as_p }}
-        {% if product.stock == 0 %}
+        {% if product.stock == 0 %}  
             <button type="submit" disabled>Buy Product</button>
         {% else %}
             <button type="submit">Buy Product</button>
         {% endif %}
 {% endif %}
-<h3><a href="{% url 'merchstore:product_list' %}">Return to Product List</a></h3>
+<a href="{% url 'merchstore:product_list' %}"class="button">Return to Product List</a>
 {% endblock %}
