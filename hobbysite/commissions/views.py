@@ -45,12 +45,33 @@ def commission_detail(request, pk):
     
     total_available_manpower = total_manpower_required_value - total_accepted_applicants
 
+    if request.user.is_authenticated:
+        job_apply = JobApplicationForm(
+            initial={
+                "job": Job.objects.get(pk=1),
+                "applicant": Profile.objects.get(pk=request.user.pk),
+                "status": "Pending",
+            }
+        )
+
+        if request.method == "POST":
+            job_apply = JobApplicationForm(request.POST)
+            if job_apply.is_valid():
+                new_application = JobApplication()
+                job_id = int(request.POST.get("job-pk"))
+                new_application.job = Job.objects.get(pk=job_id)
+                new_application.applicant = Profile.objects.get(pk=request.user.pk)
+                new_application.status = "Pending"
+                new_application.save()
+                return redirect("commissions:list")   
+            
     ctx = {
         "commission_detail": commission_detail,
         "job_detail": job_detail,
         "total_manpower_required": total_manpower_required,
         "author_of_commission": commission_detail.author,
         "total_available_manpower": total_available_manpower,
+        "job_apply": job_apply,
         }
     
     return render(request, "commission_detail.html", ctx)
@@ -70,7 +91,8 @@ def commission_create(request):
 
             addjob = add_job_form.save(commit=False)   
             addjob.commission = createcommission
-            addjob.save()      
+            addjob.save()   
+            return redirect("commissions:list")   
     
     ctx = {
         "create_commission_form":create_commission_form,
@@ -97,6 +119,11 @@ def commission_update(request, pk):
 
 @login_required
 def commission_jobapplication(request, pk):
+    job = get_object_or_404(Job, id=pk)
+    applicant = request.user.profile
+    selectable_jobs = Job.objects.exclude(status=status_accepted)
+
+    JobApplication.objects.create(job=job, applicant=applicant, status=status_pending)
 
     jobapplication_form = JobApplicationForm(request.POST or None)
     if request.method == "POST":
@@ -107,6 +134,7 @@ def commission_jobapplication(request, pk):
 
     ctx = {
         "jobapplication_form":jobapplication_form,
+        "selectable_jobs": selectable_jobs,
     }
 
     return render(request, "commission_jobapplication.html", ctx)

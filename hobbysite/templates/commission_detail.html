@@ -38,7 +38,18 @@ Details
     {% if job.manpower_required != job.accepted_applicants %}
     {% if job.get_status == "Open" %}
     {% if request.user.is_authenticated %}
-    <h3><a href="{% url 'commissions:commission_jobapplication' pk=commission_detail.pk %}">Apply to Job</a></h3>
+        <form method="post">
+            {%csrf_token%}
+            {{job_apply}}
+            <input type="hidden" name="job-pk" value="{{job.pk}}">
+            {% if job.accepted_applicants == job.manpower_required%}
+                <input type="submit" value="Apply to the Job" disabled>
+            {%else%}
+                <input type="submit" value="Apply to the Job">
+
+        </form>
+        {%endif%}
+
     {%endif%}
     {%endif%}
     {%endif%}
