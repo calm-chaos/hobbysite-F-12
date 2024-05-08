@@ -1,13 +1,106 @@
 {% extends "blog_base.html" %}
+{% block title %} {{title}} {% endblock %}
 {% block content %}
 
-<body>
-    <h2> {{ object.title }} </h2>
+<head>
+    <div class = "header">
+        {% if image %}
+        <img
+            src = "{{ image.url }}"
+            alt = "{{ title }}"
+            style = "height: 275px; 
+                    width: 1170px; 
+                    object-fit: cover; 
+                    object-position: 0px 65%;">
+        {% endif %}
+    </div>
+</head>
 
-    <p><b>Category: </b>{{ object.category }}</p>
-    <p><b>Created On: </b>{{ object.created_on }}</p>
-    <p><b>Updated On: </b>{{ object.updated_on }}</p>
-    <p>{{ object.entry }}</p>
+<body>
+    <h2> {{ title }} </h2>
+
+    <p><b>Category: </b>{{ category }}</p>
+    <p><b>Created On: </b>{{ created_on }}</p>
+    <p><b>Updated On: </b>{{ updated_on }}</p>
+    <p>{{ entry }}</p>
+
+    
+    {% if request.user.is_authenticated %}
+    {% if request.user == author.user %}
+    <h3>
+        <br>
+        <a
+            href = "{{ request.path }}edit" class="button">
+            Update Article
+        </a>
+    </h3>
+    {% endif %}
+
+    <h3>Add Comment</h3>
+    <form method = "POST">
+        {% csrf_token %}
+        {{ form }}
+        <button  type = "submit"> SUBMIT </button>
+    </form> 
+    {% endif %}
+    
+    <br>
+    <h2>Comments</h2>
+    {% for comment in comments %}
+    <p>
+        <strong>
+            <b>
+                {{ comment.author }}
+            </b>
+            <i>
+                ({{comment.created_on}})
+            </i>
+            <p>
+                {{ comment.entry }}
+            </p>
+        </strong>
+    </p>
+    {% endfor %}
+    
+    <h2>
+        <br>
+        <a 
+            href = "{% url 'blog:articles' %}"
+            class = "button"
+            >Back to All Articles</a>
+    </h2>
+
+    <p>
+        <br>
+        <strong>Read more by {{ author }}:</strong>
+    </p>
+    
+    {% if author.user == request.user %}
+    <ul>
+        {% for user_other_article in user_other_articles %}
+        <p>
+            <li>
+                <a href = "{% url 'blog:article-detail' pk=user_other_article.pk %}">
+                    {{ user_other_article.title }}
+                </a>
+            </li>
+        </p>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <ul>
+        {% for user_other_article in user_other_articles %}
+        <p>
+            <li>
+                <a href = "{% url 'blog:article-detail' pk=user_other_article.pk %}">
+                    {{ user_other_article.title }}
+                </a>
+            </li>
+        </p>
+        {% endfor %}
+    </ul>
+
+    {% endif %}
 
 </body>
 
