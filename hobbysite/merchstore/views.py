@@ -61,7 +61,7 @@ def product_create(request):
             currentUser = Profile.objects.get(user=request.user)
             product.owner = currentUser
             product = productForm.save()
-            return redirect("merchstore:products")
+            return redirect("merchstore:product_list")
         
     ctx = {
         "form": productForm
