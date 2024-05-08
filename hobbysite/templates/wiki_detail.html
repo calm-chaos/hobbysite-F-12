@@ -1,6 +1,10 @@
 {% extends "wiki_base.html" %}
 {% block content %}
 
+<h2>
+    <a href="{% url 'wiki:article-library' %}" class="button">Back to All Articles</a>
+</h2>
+
 <head>
     <title>{{ title }}</title>
     {% if image %}
