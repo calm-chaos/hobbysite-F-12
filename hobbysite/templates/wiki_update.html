@@ -1,0 +1,18 @@
+{% extends "wiki_base.html" %}
+{% block content %}
+
+<head>
+    <title>Update Article</title>
+</head>
+
+<body>
+    <h2>Update Article</h2>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Update</button>
+    </form>
+
+</body>
+{% endblock %}

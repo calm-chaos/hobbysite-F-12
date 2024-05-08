@@ -1,10 +1,27 @@
 {% extends "merch_base.html" %}
 {% block content %}
 
-<h2>{{ object.name }}</h2>
+<h2>{{ product.name }}</h2>
+<p><strong>Owner:</strong> {{ product.owner }}</p>
 
-<p><strong>Product Type:</strong> {{ object.productType }}</p>
-<p><strong>Price: </strong>Php {{ object.price }}</p>
-<p><strong>Description: </strong>{{ object.description }}</p>
+<p><strong>Product Type:</strong> {{ product.productType }}</p>
+<p><strong>Price: </strong>Php {{ product.price }}</p>
+<p><strong>Stock: </strong> {{ product.stock }}</p>
+<p><strong>Status: </strong> {{ product.status }}</p>
+<p><strong>Description: </strong>{{ product.description }}</p>
+
+{% if request.user.is_authenticated and product.owner == request.user.profile %}
+    <a href="{% url 'merchstore:product_update' pk=product.pk %}"class="button">Edit Product</a>
+{% else %}
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        {% if product.stock == 0 %}  
+            <button type="submit" disabled>Buy Product</button>
+        {% else %}
+            <button type="submit">Buy Product</button>
+        {% endif %}
+{% endif %}
+<a href="{% url 'merchstore:product_list' %}"class="button">Return to Product List</a>
 
 {% endblock %}

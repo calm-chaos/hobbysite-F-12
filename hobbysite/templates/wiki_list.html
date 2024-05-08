@@ -1,12 +1,47 @@
 {% extends "wiki_base.html" %}
 {% block content %}
+
+<a href="{% url 'wiki:gallery' %}" class="button">Go to Gallery</a>
+
+{% if request.user.is_authenticated %}
+<h2> {{ user }}'s Articles</h2>
+{% for category in user_categories %}
+<h3>{{ category.name }}</h3>
 <ul>
-    {% for article in library %}
-    <h3>
-        <li>
-            <a href='{{ article.get_absolute_url}}'>{{ article.title }}</a>
-        </li>
-    </h3>
+    {% for article in user_articles %}
+    {% if article.category == category %}
+    <li><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></li>
+    {% endif %}
     {% endfor %}
 </ul>
+{% endfor %}
+<a href="{% url 'wiki:article-create' %}" class="button">Create New Article</a>
+<br>
+
+<h2>All Articles</h2>
+{% for category in all_categories %}
+<h3>{{ category.name }}</h3>
+<ul>
+    {% for article in all_other_articles %}
+    {% if article.category == category %}
+    <li><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></li>
+    {% endif %}
+    {% endfor %}
+</ul>
+{% endfor %}
+
+{% else %}
+<h2>All Articles</h2>
+{% for category in all_categories %}
+<h3>{{ category.name }}</h3>
+<ul>
+    {% for article in all_articles %}
+    {% if article.category == category %}
+    <li><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></li>
+    {% endif %}
+    {% endfor %}
+</ul>
+{% endfor %}
+{% endif %}
+
 {% endblock %}
