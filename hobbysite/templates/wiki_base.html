@@ -52,8 +52,8 @@
         .button {
             display: inline-block;
             padding: 6px 12px;
-            background-color: #c9adc2;
-            color: #461e3f;
+            background-color: #D4A9BC;
+            color: #672F58;
             border: none;
             border-radius: 12px;
             text-decoration: none;
@@ -61,7 +61,7 @@
         }
 
         .button:hover {
-            background-color: #d8c6d4;
+            background-color: #c4d9ec;
         }
     </style>
 </head>
@@ -84,7 +84,7 @@
             <li><a href="{% url 'blog:articles' %}">Blog</a></li>
             <li><a class="active" href="{% url 'wiki:article-library' %}">Wiki</a></li>
             <li><a href="{% url 'commissions:list' %}">Commissions</a></li>
-            <li><a href="{% url 'merchstore:products' %}">Merchstore</a></li>
+            <li><a href="{% url 'merchstore:product_list' %}">Merchstore</a></li>
         </ul>
     </nav>
     <h1>Article Library</h1>

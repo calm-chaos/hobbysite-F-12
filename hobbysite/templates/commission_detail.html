@@ -10,7 +10,8 @@ Details
 
 {% if request.user.is_authenticated %}
 {% if request.user.profile == commission_detail.author %}
-<h3><a href="{% url 'commissions:commission_update' pk=commission_detail.pk %}">Update your Commission Here</a></h3>
+<a href="{% url 'commissions:commission_update' pk=commission_detail.pk %}" class="button">Update your Commission
+    Here</a>
 {%endif%}
 {%endif%}
 
@@ -38,17 +39,17 @@ Details
     {% if job.manpower_required != job.accepted_applicants %}
     {% if job.get_status == "Open" %}
     {% if request.user.is_authenticated %}
-        <form method="post">
-            {%csrf_token%}
-            {{job_apply}}
-            <input type="hidden" name="job-pk" value="{{job.pk}}">
-            {% if job.accepted_applicants == job.manpower_required%}
-                <input type="submit" value="Apply to the Job" disabled>
-            {%else%}
-                <input type="submit" value="Apply to the Job">
+    <form method="post">
+        {%csrf_token%}
+        {{job_apply}}
+        <input type="hidden" name="job-pk" value="{{job.pk}}">
+        {% if job.accepted_applicants == job.manpower_required%}
+        <input type="submit" value="Apply to the Job" disabled>
+        {%else%}
+        <input type="submit" value="Apply to the Job">
 
-        </form>
-        {%endif%}
+    </form>
+    {%endif%}
 
     {%endif%}
     {%endif%}

@@ -12,13 +12,13 @@
 
         div.image {
             margin: 3px;
-            border: 2px solid #967aa1;
+            border: 2px solid #c9adc2;
             width: auto;
             max-width: fit-content;
         }
 
         div.image:hover {
-            border: 2px solid #967aa1;
+            border: 2px solid #8d576d;
         }
 
         div.image img {
@@ -37,10 +37,7 @@
 <body>
     <h2>Gallery</h2>
     <h2>
-        <a 
-            href = "{% url 'blog:articles' %}"
-            class = "button"
-            >Back to All Articles</a>
+        <a href="{% url 'blog:articles' %}" class="button">Back to All Articles</a>
     </h2>
     <div class="gallery">
         {% for article in articles %}
