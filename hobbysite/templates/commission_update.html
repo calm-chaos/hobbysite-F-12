@@ -1,0 +1,24 @@
+{% extends 'commission_base.html' %}
+
+{% block title %}
+Updating the Details of a Commission
+{% endblock %}
+
+{% block mycontent %}
+
+<head>
+    <title>Update Existing Commission</title>
+</head>
+
+<body>
+    <h2>Update Existing Commission</h2>
+    <p>Author: {{request.user}}</p>
+    <form method ="post">
+        {%csrf_token%}
+        {{commission_update_form.as_p}}
+        <button type="submit">Update</button>
+    </form>
+
+</body>
+
+{% endblock %}
