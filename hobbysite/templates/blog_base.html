@@ -53,12 +53,12 @@
             color: #8d576d;
         }
 
-        
+
         .button {
             display: inline-block;
             padding: 6px 12px;
-            background-color: #7c77b9;
-            color: #eccefd;
+            background-color: #D4A9BC;
+            color: #672F58;
             border: none;
             border-radius: 12px;
             text-decoration: none;
@@ -66,17 +66,16 @@
         }
 
         .button:hover {
-            background-color: #5f0f40;
+            background-color: #c4d9ec;
         }
 
         .header {
             padding: 30px;
             text-align: center;
-            background: #cca1c9;
+            background: #c4d9ec;
             color: white;
             font-size: 0px;
         }
-
     </style>
 </head>
 
@@ -96,7 +95,7 @@
             <li><a class="active" href="{% url 'blog:articles' %}">Blog</a></li>
             <li><a href="{% url 'wiki:article-library' %}">Wiki</a></li>
             <li><a href="{% url 'commissions:list' %}">Commissions</a></li>
-            <li><a href="{% url 'merchstore:products' %}">Merchstore</a></li>
+            <li><a href="{% url 'merchstore:product_list' %}">Merchstore</a></li>
         </ul>
     </nav>
     <header>
