@@ -3,16 +3,52 @@
 
 <head>
     <title>{{ title }}</title>
+    {% if image %}
+    <img src="{{ image.url }}" alt="{{ title }}" style="width: 160px;">
+    {% endif %}
 </head>
 
 <body>
     <h2>{{ title }}</h2>
+    <p><strong>Author:</strong> <i>{{ author }}</i></p>
     <p><strong>Category:</strong> <i>{{ category }}</i></p>
     <p><strong>Created On:</strong> {{ created_on }}</p>
     <p><strong>Updated On:</strong> {{ updated_on }}</p>
 
     <p>{{ entry }}</p>
 
+    {% if request.user.is_authenticated %}
+    {% if request.user == author.user %}
+    <a href="{{ request.path }}/edit" class="button">Update Article</a>
+    {% endif %}
+    {% endif %}
+
+    <p><br><strong>Read more from category:</strong> <i>{{ category }}</i> </p>
+
+    <ul>
+        {% for other_article in other_articles %}
+        <p>
+            <li>
+                <a href="{% url 'wiki:article' pk=other_article.pk %}"> {{ other_article.title }}</a>
+            </li>
+        </p>
+        {% endfor %}
+    </ul>
+    <br><br>
+    {% if request.user.is_authenticated %}
+    <h3>Add a Comment</h3>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+    {% endif %}
+
+    <h3>Comments</h3>
+    {% for comment in comments %}
+    <p><strong><i>{{ comment.author }}</i></strong> ({{ comment.created_on }})</p>
+    <p>{{ comment.entry }}</p>
+    {% endfor %}
 
 </body>
 {% endblock %}
