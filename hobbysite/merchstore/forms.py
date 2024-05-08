@@ -21,10 +21,12 @@ class TransactionForm(forms.ModelForm):
             raise forms.ValidationError("There is not enough stocks of your product. Please try again.")
         return amount
 
+
 class ProductForm(forms.ModelForm):
     class Meta: 
         model = Product
         exclude = ['owner']
+
 
 class ProductUpdateForm(forms.ModelForm):
     class Meta: 

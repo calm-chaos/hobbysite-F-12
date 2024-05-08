@@ -65,7 +65,7 @@ class Transaction(models.Model):
         null=True,
         on_delete=models.SET_NULL
     )
-    amount = models.IntegerField()
+    amount = models.IntegerField(null=True)
 
     class TransactionStatus(models.TextChoices):
         ON_CART = 'On Cart'
